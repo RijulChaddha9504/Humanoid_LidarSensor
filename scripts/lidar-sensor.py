@@ -1,5 +1,15 @@
 import omni                                                     # Provides the core omniverse apis
-import asyncio                                                  # Used to run sample asynchronously to not block rendering thread
+import asyncio
+
+from omni.isaac.kit import SimulationApp
+
+# Load Isaac Sim in headless or GUI mode
+simulation_app = SimulationApp({"headless": False})  # or True if headless
+
+# Programmatically enable the range sensor extension
+from omni.isaac.core.utils.extensions import enable_extension
+enable_extension("omni.isaac.range_sensor")
+                                                  # Used to run sample asynchronously to not block rendering thread
 from omni.isaac.range_sensor import _range_sensor               # Imports the python bindings to interact with Lidar sensor
 from pxr import UsdGeom, Gf, UsdPhysics                         # pxr usd imports used to create the cube
 
