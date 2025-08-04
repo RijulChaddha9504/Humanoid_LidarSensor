@@ -1,5 +1,4 @@
 from omni.isaac.kit import SimulationApp
-
 # Launch the simulator
 simulation_app = SimulationApp({"headless": False})
 
@@ -9,6 +8,8 @@ from omni.isaac.core.utils.nucleus import get_assets_root_path
 from omni.isaac.core.objects import DynamicCuboid, DynamicCylinder
 from omni.isaac.core.utils.stage import add_reference_to_stage
 from pxr import Gf
+
+import numpy as np
 
 # Initialize the world
 world = World(stage_units_in_meters=1.0)
@@ -31,7 +32,7 @@ _, lidar_prim = omni.kit.commands.execute(
     parent=robot_prim_path,
     config=lidar_config,
     translation=Gf.Vec3f(0.0, 0.0, 0.3),
-    orientation=Gf.Vec3f(0.0, 0.0, 0.0),
+    orientation=Gf.Quatd(1.0, 0.0, 0.0, 0.0),
 )
 
 # Add obstacles
@@ -39,7 +40,7 @@ obstacle1 = DynamicCuboid(
     prim_path="/World/Obstacle1",
     position=(2.0, 0.0, 0.5),
     size=(1.0, 1.0, 1.0),
-    color=(1.0, 0.2, 0.2)
+    color=np.array([1.0, 0.2, 0.2])
 )
 
 obstacle2 = DynamicCylinder(
@@ -47,7 +48,7 @@ obstacle2 = DynamicCylinder(
     position=(-1.5, 1.5, 0.5),
     radius=0.5,
     height=1.0,
-    color=(0.2, 0.3, 1.0)
+    color=np.array([0.2, 0.3, 1.0])
 )
 
 # Initialize simulation
